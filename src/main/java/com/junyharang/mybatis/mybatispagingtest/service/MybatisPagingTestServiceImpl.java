@@ -1,6 +1,5 @@
 package com.junyharang.mybatis.mybatispagingtest.service;
 
-import com.junyharang.mybatis.mybatispagingtest.CustomBaseResponse;
 import com.junyharang.mybatis.mybatispagingtest.model.dto.request.BoardListSearchDTO;
 import com.junyharang.mybatis.mybatispagingtest.model.dto.request.BoardWriteRequestDTO;
 import com.junyharang.mybatis.mybatispagingtest.model.vo.BoardResponseVO;
@@ -8,7 +7,6 @@ import com.junyharang.mybatis.mybatispagingtest.repository.mapper.MybatisPagingT
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor

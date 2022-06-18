@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * Board Test Controller
  * <pre>
@@ -38,12 +36,17 @@ import javax.servlet.http.HttpServletRequest;
     } // registerBoard(BoardWriteRequestDTO boardWriteRequestDTO) 끝
 
     @GetMapping("/board")
-    public CustomBaseResponse<PageInfo<BoardResponseVO>> getPaging(BoardListSearchDTO boardListSearchDTO) {
+    public CustomBaseResponse getPaging(BoardListSearchDTO boardListSearchDTO) {
+
+        if (boardListSearchDTO.getPageNum() <= 0) {
+            return CustomBaseResponse.error(400, "Bad Request", "요청 정보 확인이 필요합니다!");
+        } else if (boardListSearchDTO.getPageSize() <= 0) {
+            return CustomBaseResponse.error(400, "Bad Request", "요청 정보 확인이 필요합니다!");
+        }
 
         PageHelper.startPage(boardListSearchDTO);
 
         return CustomBaseResponse.ok(PageInfo.of(mybatisPagingTestService.getPaging(boardListSearchDTO)));
 
     } // getPaging() 끝
-
 } // class 끝

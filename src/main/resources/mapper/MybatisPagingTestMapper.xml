@@ -23,16 +23,22 @@
         <if test=' searchType neq null and searchType neq "" '>
             <choose>
                 <when test="searchType eq 'title'.toString()">
-                    and title like CONCAT('%', ${searchContent}, '%')
+                    <if test=' searchContent eq null and searchContent eq "" '>
+                        and title like CONCAT('%')
+                    </if>
+                    <if test=' searchContent neq null and searchContent neq "" '>
+                        and title like CONCAT('%', #{searchContent}, '%')
+                    </if>
                 </when>
                 <when test="searchType eq 'contents'.toString()">
-                    and contents like CONCAT('%', ${searchContent}, '%')
+                    <if test=' searchContent eq null and searchContent eq "" '>
+                        and contents like CONCAT('%')
+                    </if>
+                    <if test=' searchContent neq null and searchContent neq "" '>
+                        and contents like CONCAT('%', #{searchContent}, '%')
+                    </if>
                 </when>
             </choose>
         </if>
-<!--        <if test=' pageNum neq null and pageSize neq null '>-->
-<!--            LIMIT ${pageNum}, ${pageSize}-->
-<!--        </if>-->
     </select>
-
 </mapper>
