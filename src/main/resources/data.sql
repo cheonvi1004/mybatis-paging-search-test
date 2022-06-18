@@ -1,0 +1,1 @@
+insert into board(title, contents) values ('제목 입니다!', '내용 입니다!');

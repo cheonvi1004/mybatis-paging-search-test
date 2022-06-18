@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junyharang.mybatis.mybatispagingtest.repository.mapper.MybatisPagingTestMapper">
+
+    <insert id="registerBoard" parameterType="com.junyharang.mybatis.mybatispagingtest.model.dto.request.BoardWriteRequestDTO">
+        insert into board (
+        title, contents
+        )
+        values (
+        #{title},
+        #{contents}
+        )
+        <selectKey keyProperty="id" resultType="Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="findByPagingAndSearch" resultType="com.junyharang.mybatis.mybatispagingtest.model.vo.BoardResponseVO"
+            parameterType="com.junyharang.mybatis.mybatispagingtest.model.dto.request.BoardListSearchDTO">
+        select *
+        from board
+        where 1 = 1
+        <if test=' searchType neq null and searchType neq "" '>
+            <choose>
+                <when test="searchType eq 'title'.toString()">
+                    and title like CONCAT('%', ${searchContent}, '%')
+                </when>
+                <when test="searchType eq 'contents'.toString()">
+                    and contents like CONCAT('%', ${searchContent}, '%')
+                </when>
+            </choose>
+        </if>
+<!--        <if test=' pageNum neq null and pageSize neq null '>-->
+<!--            LIMIT ${pageNum}, ${pageSize}-->
+<!--        </if>-->
+    </select>
+
+</mapper>
